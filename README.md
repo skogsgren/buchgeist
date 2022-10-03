@@ -44,3 +44,6 @@ import nltk
 nltk.download(sent_tokenizer)
 nltk.download(word_tokenizer)
 ```
+
+For documentation regarding generating database from RDF-files, as well as
+downloading the actual cover images, use `pydoc3 build_db`.
