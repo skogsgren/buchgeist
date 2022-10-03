@@ -1,0 +1,8 @@
+beautifulsoup4
+Flask
+gutenbergpy
+nltk
+redis
+requests
+rq
+wget

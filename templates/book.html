@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block main %}
+
+<br>
+<h3>For {{title}}, Geist says:</h3>
+<br>
+
+<div class="alert alert-primary">
+
+    {% for line in lines %}
+        <p>{{line}}</p>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

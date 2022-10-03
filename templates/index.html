@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+
+<div class="card-columns">
+<div class="row row-cols-2 row-cols-md-4">
+
+{% for i in cards %}
+<div class="col mb-4">
+    <div class="card h-100">
+        <img class="card-img-top" src="{{cards[i]["img"]}}" alt="Cover for {{cards[i]["title"]}}">
+        <div class="card-body">
+            <h5 class="card-title">{{cards[i]["title"]}}</h5>
+            <p class="card-text">Written by {{cards[i]["author"]}}</p>
+        </div>
+        <a href="/book?id={{i}}" class="btn btn-primary">Give me the geist of it!</a>
+    </div>
+</div>
+{% endfor %}
+
+</div>
+</div>
+
+{% endblock %}

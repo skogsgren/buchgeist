@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+{{query}}
+{% endblock %}
+
+{% block main %}
+
+<div class="card-columns">
+<div class="row row-cols-2 row-cols-md-4">
+
+{% for i in matches %}
+<div class="col mb-4">
+    <div class="card h-100">
+        <img class="card-img-top" src="static/img/pg{{i[0]}}.cover.medium.jpg" alt="Cover for {{i[2]}}">
+        <div class="card-body">
+            <h5 class="card-title">{{i[2]}}</h5>
+            <p class="card-text">Written by {{i[1]}}</p>
+        </div>
+        <a href="/book?id={{i[0]}}" class="btn btn-primary">Geist me!</a>
+    </div>
+</div>
+{% endfor %}
+
+</div>
+</div>
+
+{% endblock %}

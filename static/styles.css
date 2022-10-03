@@ -1,0 +1,43 @@
+nav .navbar-brand {
+    font-size: xx-large;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.form-inline {
+    display: flex;
+}
+
+.card-img-top {
+    margin: auto;
+    padding: 20px 20px;
+    height: 250px;
+    width: auto;
+    max-width: 100%
+}
+
+.row {
+    margin: 10px;
+}
+
+.form-control.mr-sm-2.pull-right {
+    margin-right: 2px;
+}
+
+.btn.btn-primary {
+    width: 75%;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.alert {
+    width: 75%;
+    margin: 10px auto;
+}
+
+h3 {
+    margin: 10px 20px;
+}
+
