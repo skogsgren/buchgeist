@@ -41,8 +41,7 @@ pip3 install -r requirements.txt
 
 ```python
 import nltk
-nltk.download(sent_tokenizer)
-nltk.download(word_tokenizer)
+nltk.download('punkt')
 ```
 
 For documentation regarding generating database from RDF-files, as well as
