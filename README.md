@@ -46,3 +46,84 @@ nltk.download('punkt')
 
 For documentation regarding generating database from RDF-files, as well as
 downloading the actual cover images, use `pydoc3 build_db`.
+
+## Documentation
+
+```
+app.py
+    Contains flask application. It also handles the redis queue actions, as well
+    as the operation in randomly selecting the cards for the homepage.
+
+helpers.py
+    Contains helper function for flask applications:
+
+    Functions:
+        generate_most_popular():
+            Creates a JSON file of most 'title: author' for all titles on
+            Gutenbergs "Most popular in the last 30 days". This is performed via
+            BeautifulSoup as well as regex.
+
+        generate_cards():
+            Generates a JSON file of 'title, author, img' for each title in JSON
+            file generated from 'generate_most_popular'. This is then used in
+            flask to generate homepage.
+
+        cleanbook():
+            Returns a downloaded book from Gutenberg, stripped of its license
+            headers. Performed using the 'gutenbergpy' package
+
+        generate_sentences():
+            Returns a list of ten sentences generated through the BookModel's
+            predict method, using weighted probability.
+
+bookmodel.py
+    Contains the BookModel class
+
+    Classes:
+        BookModel:
+            Stores the relevant variables/methods for book. This is exported to
+            JSON file so that it is persistent across program reboots
+
+            Class variables:
+                book_raw = book in one long string. Only used for
+                    initializing the object the first time, otherwise None.
+                bigrams = all bigrams in book
+                first_words = Counter object of all the first words in sentences
+                weights = The weights for first words as extracted from the 
+                    first_words Counter
+
+            Methods:
+                extract_bigrams(self, book):
+                    Extracts all bigrams from book. The tokenizer used is from
+                    NLTK.
+                predict(self, word):
+                    Predicts next word using weighted probality from generated
+                    BookModel.
+                get_first_words(self):
+                    Extracts first word from sentences, returning a Counter
+                    (which also contains the weights for those first words, to
+                    be used in deciding which word is the first word in randomly
+                    generated text).
+
+    Functions:
+        generate_bookmodel(book_id):
+            Returns generated BookModel object. This function only needs to
+            exist for redis purposes, seeing as I can only pass in a function
+            there.
+
+build_db.py:
+    Contains functions related to the download/creation of database and image
+    covers.
+
+    Functions:
+        build_database(rdf_dir="rdf-files/cache/epub"):
+            Builds SQL database from catalog of RDF-files. Performed by going
+            through each RDF file and extracting the relevant fields (title,
+            author, book_id) and injecting those into the SQL database if not
+            already present.
+
+        download_covers(db="metadata.db"):
+            Downloads covers for books in SQL database, using a Gutenberg
+            mirror. Smaller cover size is used to alleviate stress on server.
+            Performed using wget.
+```
