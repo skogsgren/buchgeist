@@ -10,7 +10,12 @@ import json
 
 
 def build_database(rdf_dir="rdf-files/cache/epub"):
-    """ Build metadata SQL database from catalog of RDF-files """
+    """ Build metadata SQL database from catalog of RDF-files.
+        Instructions:
+            1. Download RDF-files from gutenberg
+            2. Unzip them to a folder (I suggest the default above)
+            3. Import build_db in python shell and run this function"""
+
     NS = dict(pg='http://www.gutenberg.org/2009/pgterms/',
               dc='http://purl.org/dc/terms/',
               dcam='http://purl.org/dc/dcam/',
@@ -66,7 +71,11 @@ def build_database(rdf_dir="rdf-files/cache/epub"):
 
 
 def download_covers(db="metadata.db"):
-    """ Download covers for books """
+    """ Download covers for books.
+        Instruction:
+            1. First create database using 'build_database'
+            2. Import this function in python shell and run it,
+               pointing it to the database generated in (1)"""
     URL = "https://dante.pglaf.org/cache/epub"
 
     # extract book_ids from SQL database
