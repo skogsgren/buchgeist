@@ -86,31 +86,3 @@ def download_covers(db="metadata.db"):
                 wget.download(f"{URL}/{book_id}/{filename}", "static/img")
             except urllib.error.HTTPError:
                 print(f"Couldn't download {URL}/{book_id}/{filename}")
-
-
-def create_book_list(filename="most_popular.json"):
-    """ Extracts titles from gutenbergs "most popular the last 30 days" """
-    html = requests.get("https://www.gutenberg.org/browse/scores/top")
-    soup = bs4(html.text, 'html.parser', from_encoding="utf-8")
-    # Find beginning of list within soup
-    header = soup.find(id="books-last30")
-    # Extract links within id of 'books-last30'
-    lines = [x.string for x in header.next_sibling.next_sibling.find_all('a')]
-    # Remove author by regex search
-    most_popular = {}
-    for i in lines:
-        # Extract title via regex
-        try:
-            title = re.search(r"(.+ )+(?=by)", i).group(0).rstrip(' ')
-        except AttributeError:  # i.e. if a book has no author
-            title = re.search(r"(.+ )+(?=\([0-9]+\))", i).group(0).rstrip(' ')
-            most_popular[title] = "Unknown"
-            continue
-
-        # Extract author's last name via regex
-        author = re.search(r"(?<=by )(.+ )+(?=\([0-9]+\))", i).group(0).split()[-1]
-
-        most_popular[title] = author
-    # Export titles to json file
-    with open(filename, 'w') as export:
-        json.dump(most_popular, export)
